@@ -30,9 +30,9 @@ RUN groupadd --system agent-common && \
 
 RUN mkdir -p $AGENT_HOME/bin $AGENT_UPLOAD_DIR $AGENT_HOME/api_keys $AGENT_LOG_DIR /var/run/sshd && \
     chown -R agent-admin:agent-common $AGENT_HOME && \
-    chown agent-admin:agent-common $AGENT_UPLOAD_DIR && chmod 770 $AGENT_UPLOAD_DIR && \
-    chown agent-admin:agent-core $AGENT_HOME/api_keys && chmod 770 $AGENT_HOME/api_keys && \
-    chown agent-admin:agent-core $AGENT_LOG_DIR && chmod 770 $AGENT_LOG_DIR && \
+    chown agent-admin:agent-common $AGENT_UPLOAD_DIR && chmod 750 $AGENT_UPLOAD_DIR && \
+    chown agent-admin:agent-core $AGENT_HOME/api_keys && chmod 750 $AGENT_HOME/api_keys && \
+    chown agent-admin:agent-core $AGENT_LOG_DIR && chmod 750 $AGENT_LOG_DIR && \
     chmod 755 /var/run/sshd
 
 COPY agent-app-linux-x86 /usr/local/bin/agent-app
@@ -83,7 +83,7 @@ EOF
 
 RUN chmod 750 /usr/local/bin/agent-log-retention.sh && \
     chown agent-admin:agent-core /usr/local/bin/agent-log-retention.sh && \
-    chmod 755 /usr/local/bin/agent-app && \
+    chmod 750 /usr/local/bin/agent-app && \
     chown agent-admin:agent-common /usr/local/bin/agent-app && \
     chmod 750 /home/agent-admin/agent-app/bin/monitor.sh && \
     chmod 750 /home/agent-admin/agent-app/bin/report.sh && \
