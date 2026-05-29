@@ -34,9 +34,27 @@
 
 ---
 ## 실행 방법
-```ssh-keygen -t rsa -b 4096 -f ~/.ssh/id_rsa.pub
+```
+ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
 cp ~/.ssh/rsa.pub ./id_rsa.pub
 ssh -p 20022  사용자계정@서버주소
+
+
+# 1. 기존 컨테이너 및 이미지 정리
+docker rm -f "$CONTAINER" >/dev/null 2>&1 || true
+docker rmi "$IMAGE" >/dev/null 2>&1 || true
+
+# 2. 이미지 빌드
+docker build -t "$IMAGE" .
+
+# 3. 컨테이너 실행
+docker run -d \
+  --name "$CONTAINER" \
+  --cap-add NET_ADMIN \
+  --cap-add NET_BIND_SERVICE \
+  -p 22022:20022 \
+  -p 15034:15034 \
+  "$IMAGE"
 
 ```
 
