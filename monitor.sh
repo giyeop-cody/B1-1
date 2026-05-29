@@ -112,13 +112,14 @@ collect_resources() {
   echo "MEM Usage : ${mem_usage}%"
   echo "DISK Used  : ${disk_used}%"
 
-  if (( $(awk "BEGIN { print ($cpu_usage > 20) }") )); then
-    warn "CPU threshold exceeded (${cpu_usage}% > 20%)"
+  if [ "$(echo "$cpu_usage > 20" | bc)" -eq 1 ]; then
+      echo "[WARN] CPU 사용률 초과: ${cpu_usage}%"
   fi
-  if (( $(awk "BEGIN { print ($mem_usage > 10) }") )); then
-    warn "MEM threshold exceeded (${mem_usage}% > 10%)"
+  
+  if [ "$(echo "$mem_usage > 10" | bc)" -eq 1 ]; then
+      echo "[WARN] 메모리 사용률 초과: ${mem_usage}%"
   fi
-  if (( disk_used > 80 )); then
+  if [ "$(echo "$disk_used > 10" | bc)" -eq 1 ]; then
     warn "DISK_USED threshold exceeded (${disk_used}% > 80%)"
   fi
 
