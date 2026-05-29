@@ -117,7 +117,7 @@ collect_resources() {
   fi
   
   if [ "$(echo "$mem_usage > 10" | bc)" -eq 1 ]; then
-      echo "[WARN] memory threshold exceeded: (${mem_usage}% > 10%)"
+      echo "[WARN] MEM threshold exceeded: (${mem_usage}% > 10%)"
   fi
   if [ "$(echo "$disk_used > 80" | bc)" -eq 1 ]; then
     warn "DISK_USED threshold exceeded (${disk_used}% > 80%)"
