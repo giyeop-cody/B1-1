@@ -60,7 +60,7 @@ ${AGENT_LOG_DIR}/*.log {
     sharedscripts
     postrotate
         install -d -m 750 -o agent-admin -g agent-core ${AGENT_ARCHIVE_DIR}
-    endscriptㄴ
+    endscript
 }
 EOF
 
