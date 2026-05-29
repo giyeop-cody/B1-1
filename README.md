@@ -34,11 +34,11 @@
 
 ---
 ## 실행 방법
-`ssh-keygen -t rsa -b 4096 -f ~/.ssh/id_rsa.pub
+```ssh-keygen -t rsa -b 4096 -f ~/.ssh/id_rsa.pub
 cp ~/.ssh/rsa.pub ./id_rsa.pub
 ssh -p 20022  사용자계정@서버주소
 
-`
+```
 
 
 
