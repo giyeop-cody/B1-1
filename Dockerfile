@@ -35,6 +35,12 @@ RUN mkdir -p $AGENT_HOME/bin $AGENT_UPLOAD_DIR $AGENT_HOME/api_keys $AGENT_LOG_D
     chown agent-admin:agent-core $AGENT_LOG_DIR && chmod 750 $AGENT_LOG_DIR && \
     chmod 755 /var/run/sshd
 
+RUN mkdir -p /home/agent-admin/.ssh /home/agent-dev/.ssh /home/agent-test/.ssh && \
+    chmod 700 /home/agent-admin/.ssh /home/agent-dev/.ssh /home/agent-test/.ssh
+
+COPY id_rsa.pub /home/agent-admin/.ssh/authorized_keys
+RUN chmod 600 /home/agent-admin/.ssh/authorized_keys && chown -R agent-admin:agent-admin /home/agent-admin/.ssh
+
 COPY agent-app-linux-x86 /usr/local/bin/agent-app
 COPY monitor.sh /home/agent-admin/agent-app/bin/monitor.sh
 COPY report.sh /home/agent-admin/agent-app/bin/report.sh
