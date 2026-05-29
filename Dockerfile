@@ -20,6 +20,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     gawk \
     gzip \
     acl \
+    bc \
     && rm -rf /var/lib/apt/lists/*
 
 RUN groupadd --system agent-common && \
