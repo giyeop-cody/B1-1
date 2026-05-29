@@ -1,9 +1,3 @@
-요구 문서(Copied text 1780015524, Copied text 1780015655)와 비교해서 어떤 차이가 있는지 설명 
-
-
-
-
-
 FROM ubuntu:22.04
 
 
