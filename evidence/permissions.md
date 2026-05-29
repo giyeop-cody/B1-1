@@ -11,10 +11,10 @@ ls -ld /home/agent-admin/agent-app /home/agent-admin/agent-app/upload_files /hom
 **결과**
 
 ```
-drwxr-xr-x 1 agent-admin agent-common 22 May 27 12:45 /home/agent-admin/agent-app
-drwxrwx--- 1 agent-admin agent-core   44 May 27 14:17 /home/agent-admin/agent-app/api_keys
-drwxrwx--- 1 agent-admin agent-common  0 May 27 12:45 /home/agent-admin/agent-app/upload_files
-drwxrwx--- 1 agent-admin agent-core    0 May 27 12:45 /var/log/agent-app
+drwxr-x--- 1 agent-admin agent-common 22 May 27 12:45 /home/agent-admin/agent-app
+drwxr-x--- 1 agent-admin agent-core   44 May 27 14:17 /home/agent-admin/agent-app/api_keys
+drwxr-x--- 1 agent-admin agent-common  0 May 27 12:45 /home/agent-admin/agent-app/upload_files
+drwxr-x--- 1 agent-admin agent-core    0 May 27 12:45 /var/log/agent-app
 ```
 
 ### ACL(Access Control List) 상세 확인 (getfacl)
@@ -32,21 +32,21 @@ getfacl /home/agent-admin/agent-app/upload_files /home/agent-admin/agent-app/api
 # owner: agent-admin
 # group: agent-common
 user::rwx
-group::rwx
+group::r-x
 other::---
 
 # file: home/agent-admin/agent-app/api_keys
 # owner: agent-admin
 # group: agent-core
 user::rwx
-group::rwx
+group::r-x
 other::---
 
 # file: var/log/agent-app
 # owner: agent-admin
 # group: agent-core
 user::rwx
-group::rwx
+group::r-x
 other::---
 
 ```
