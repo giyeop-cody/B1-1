@@ -113,13 +113,13 @@ collect_resources() {
   echo "DISK Used  : ${disk_used}%"
 
   if [ "$(echo "$cpu_usage > 20" | bc)" -eq 1 ]; then
-      echo "[WARN] CPU 사용률 초과: ${cpu_usage}%"
+      echo "[WARN] CPU threshold exceeded: (${cpu_usage}% > 20%)"
   fi
   
   if [ "$(echo "$mem_usage > 10" | bc)" -eq 1 ]; then
-      echo "[WARN] 메모리 사용률 초과: ${mem_usage}%"
+      echo "[WARN] memory threshold exceeded: (${mem_usage}% > 10%)"
   fi
-  if [ "$(echo "$disk_used > 10" | bc)" -eq 1 ]; then
+  if [ "$(echo "$disk_used > 80" | bc)" -eq 1 ]; then
     warn "DISK_USED threshold exceeded (${disk_used}% > 80%)"
   fi
 
