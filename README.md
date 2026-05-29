@@ -107,15 +107,15 @@ RUN groupadd --system agent-common && \
 
 ```bash
 RUN chown -R agent-admin:agent-common $AGENT_HOME && \
-    chown agent-admin:agent-common $AGENT_UPLOAD_DIR && chmod 770 $AGENT_UPLOAD_DIR && \
-    chown agent-admin:agent-core $AGENT_HOME/api_keys && chmod 770 $AGENT_HOME/api_keys && \
-    chown agent-admin:agent-core $AGENT_LOG_DIR && chmod 770 $AGENT_LOG_DIR
+    chown agent-admin:agent-common $AGENT_UPLOAD_DIR && chmod 750 $AGENT_UPLOAD_DIR && \
+    chown agent-admin:agent-core $AGENT_HOME/api_keys && chmod 750 $AGENT_HOME/api_keys && \
+    chown agent-admin:agent-core $AGENT_LOG_DIR && chmod 750 $AGENT_LOG_DIR
 ```
 
 **권한 정책**:
-- `upload_files` (770, `agent-common`): 모든 팀원 공유
-- `api_keys` (770, `agent-core`): admin/dev만 접근 (민감 정보 보호)
-- `/var/log/agent-app` (770, `agent-core`): admin/dev만 접근 (운영 로그)
+- `upload_files` (750, `agent-common`): 모든 팀원 공유
+- `api_keys` (750, `agent-core`): admin/dev만 접근 (민감 정보 보호)
+- `/var/log/agent-app` (750, `agent-core`): admin/dev만 접근 (운영 로그)
 
 **확인 증거**: [evidence/permissions.md](evidence/permissions.md)
 
@@ -124,9 +124,9 @@ RUN chown -R agent-admin:agent-common $AGENT_HOME && \
 역할 기반 접근 제어(RBAC) 및 보안 정책이 제대로 작동하고 있는지 검증하기 위해 POSIX 기본 권한(`ls -l`)과 확장 권한(`getfacl`)을 통해 상세 확인이 가능합니다.
 
 **1) 파일 권한 및 소유자 확인 (`ls -l` / `ls -ld`)**
-* `/home/agent-admin/agent-app/upload_files`: 소유자 `agent-admin`, 소유 그룹 `agent-common`, 권한 `770` (`drwxrwx---`)
-* `/home/agent-admin/agent-app/api_keys`: 소유자 `agent-admin`, 소유 그룹 `agent-core`, 권한 `770` (`drwxrwx---`)
-* `/var/log/agent-app`: 소유자 `agent-admin`, 소유 그룹 `agent-core`, 권한 `770` (`drwxrwx---`)
+* `/home/agent-admin/agent-app/upload_files`: 소유자 `agent-admin`, 소유 그룹 `agent-common`, 권한 `750` (`drwxr-x---`)
+* `/home/agent-admin/agent-app/api_keys`: 소유자 `agent-admin`, 소유 그룹 `agent-core`, 권한 `750` (`drwxr-x---`)
+* `/var/log/agent-app`: 소유자 `agent-admin`, 소유 그룹 `agent-core`, 권한 `750` (`drwxr-x---`)
 
 **2) ACL(Access Control List) 상세 구조 확인 (`getfacl`)**
 컨테이너 내부에 `acl` 패키지를 설치하여 파일 시스템 수준에서 정교한 권한 검증을 제공합니다. 아래 명령어로 각각의 ACL 설정을 확인할 수 있습니다.
@@ -141,7 +141,7 @@ RUN chown -R agent-admin:agent-common $AGENT_HOME && \
   # owner: agent-admin
   # group: agent-common
   user::rwx
-  group::rwx
+  group::r-x
   other::---
   ```
   *(설명: `agent-common` 그룹에 속한 admin, dev, test 세 사용자 모두가 자유롭게 읽고 쓸 수 있는 공간을 제공합니다.)*
@@ -157,7 +157,7 @@ RUN chown -R agent-admin:agent-common $AGENT_HOME && \
   # owner: agent-admin
   # group: agent-core
   user::rwx
-  group::rwx
+  group::r-x
   other::---
   ```
   *(설명: `agent-core` 그룹(admin, dev)만 읽고 쓰기가 가능하며, 테스트 담당 계정인 `agent-test` 등 외부 계정의 접근은 차단됩니다.)*
@@ -185,7 +185,7 @@ ENV AGENT_LOG_DIR=/var/log/agent-app
 **구현 위치**: Dockerfile (라인 83-87)
 
 ```bash
-chmod 755 /usr/local/bin/agent-app
+chmod 750 /usr/local/bin/agent-app
 chown agent-admin:agent-common /usr/local/bin/agent-app
 ```
 
