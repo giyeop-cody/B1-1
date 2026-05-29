@@ -27,7 +27,7 @@ getent group agent-common && getent group agent-core
 **결과**
 
 ```
-agent-common:x:999:
+agent-common:x:999:agent-test
 agent-core:x:998:agent-admin,agent-dev
 ```
 
