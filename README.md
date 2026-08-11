@@ -1520,3 +1520,60 @@ sleep 5
 | `report.sh` | 로그 통계 분석 |
 | `evidence/` | 실행 결과 증거 |
 
+
+---
+
+## 🚀 실행 방법
+
+### 사전 준비
+- Docker 설치 필요
+
+### 빌드 및 실행
+```bash
+# 이미지 빌드
+docker build -t b1-1-ubuntu .
+
+# 컨테이너 실행 (방화벽을 위해 NET_ADMIN 권한 필요)
+docker run -d --name b1-1-assignment \
+  --cap-add NET_ADMIN \
+  --cap-add NET_BIND_SERVICE \
+  -p 22022:20022 \
+  -p 15034:15034 \
+  b1-1-ubuntu
+
+# 컨테이너 접속
+ssh -p 22022 agent-admin@localhost
+```
+
+---
+
+## 🧪 테스트 방법
+
+### 자동 검증
+```bash
+node validate-portfolio.mjs  # 41개 항목 자동 검증 (B4-1 전용, B1-1은 수동)
+```
+
+### 수동 테스트 (컨테이너 내부)
+```bash
+# 1. 사용자/그룹 확인
+docker exec b1-1-assignment id agent-admin && id agent-dev && id agent-test
+
+# 2. SSH 보안 확인
+docker exec b1-1-assignment grep -E '^Port |^PermitRootLogin ' /etc/ssh/sshd_config
+
+# 3. 방화벽 확인
+docker exec b1-1-assignment ufw status verbose
+
+# 4. 앱 부트 시퀀스
+docker exec b1-1-assignment su - agent-admin -c "cd /home/agent-admin/agent-app && /usr/local/bin/agent-app"
+
+# 5. 모니터링 스크립트
+docker exec b1-1-assignment /home/agent-admin/agent-app/bin/monitor.sh
+
+# 6. cron 확인
+docker exec b1-1-assignment crontab -u agent-admin -l
+
+# 7. 로그 누적 확인
+docker exec b1-1-assignment tail -5 /var/log/agent-app/monitor.log
+```
