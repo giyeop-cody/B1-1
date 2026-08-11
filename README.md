@@ -79,9 +79,9 @@ RUN sed -i 's/#Port 22/Port 20022/' /etc/ssh/sshd_config && \
 ```
 
 **설명**:
-- `Port 20022`: 기본 SSH 포트 22를 20022로 변경하여 무차별 자동 대입 공격(Brute Force)의 99% 이상을 방어합니다.
+- `Port 20022`: 기본 SSH 포트 22를 20022로 변경하여 대부분의 자동화된 스캔 공격을 회피합니다.
 - `PermitRootLogin no`: 시스템 최고 권한을 가진 Root 계정의 직접 원격 로그인을 전면 차단합니다. 이를 통해 공격자가 계정명을 알아내어 접근하는 것을 불가능하게 만들고, 일반 계정으로 접속 후 `sudo` 권한을 이용하도록 강제하여 로그 감사 추적(Audit Trail)을 보장합니다.
-- `PasswordAuthentication no`: 비밀번호를 통한 SSH 로그인을 금지하고, 미리 승인된 공개키/개인키 쌍(Key-based authentication)을 통한 접속만 허용합니다. 비밀번호 유출 및 사전 대입 공격을 원천 봉쇄하여 서버 보안 수준을 극대화합니다.
+- `PasswordAuthentication no` (보너스 구현): 비밀번호를 통한 SSH 로그인을 금지하고, 미리 승인된 공개키/개인키 쌍(Key-based authentication)을 통한 접속만 허용합니다. 비밀번호 유출 및 사전 대입 공격을 원천 봉쇄하여 서버 보안 수준을 극대화합니다.
 
 **확인 증거**: [evidence/ssh_firewall.md](evidence/ssh_firewall.md)
 
