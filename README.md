@@ -16,7 +16,7 @@
 | 다음 과정 | 심화(A) [codyssey-A-studylog-hub](https://github.com/giyeop-cody/codyssey-A-studylog-hub) · 응용(M) 정의서 [`taskmap/M*/`](https://github.com/giyeop-cody/codyssey-taskmap/tree/main/M1-1) |
 | 같은 과목 다른 과제 | [B1-2](https://github.com/giyeop-cody/codyssey-taskmap/blob/main/B1-2/links.md) |
 
-> 🔒 = 비공개 레포. 상태·pin 커밋은 연결 카드와 `PROGRESS.md` 에 있다. 이 표는 2026-09-27 기준이며 미션 원문 3종은 원본 데이터라 진행 상태를 쓰지 않는다.
+> 🔒 = 비공개 레포. 상태·pin 커밋은 연결 카드와 `PROGRESS.md` 에 있다. 이 표는 2026-10-10 기준이며 미션 원문 3종은 원본 데이터라 진행 상태를 쓰지 않는다.
 <!-- codyssey-links:end -->
 
 ## 📌 과제 정보
